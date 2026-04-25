@@ -17,6 +17,7 @@ type Annotation = {
   x: number;
   y: number;
   width?: number;
+  height?: number;
   text?: string;
   fontSize?: number;
   pageNum: number;
