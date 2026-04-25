@@ -26,7 +26,7 @@ export default function SecurityPage() {
       // Use the lightweight encrypt library to secure the PDF buffer
       const encryptedBytes = await encryptPDF(pdfBytes, password);
       
-      const blob = new Blob([encryptedBytes], { type: "application/pdf" });
+      const blob = new Blob([encryptedBytes.buffer as ArrayBuffer], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       
       const a = document.createElement("a");
