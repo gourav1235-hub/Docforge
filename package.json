@@ -11,7 +11,6 @@
   "dependencies": {
     "@pdfsmaller/pdf-encrypt-lite": "^1.0.2",
     "next": "16.2.4",
-    "pdf-encrypt": "^1.0.1",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.6.205",
     "react": "19.2.4",
