@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LuminaPDF - Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#1d2027",
+                        "on-secondary-fixed": "#23005c",
+                        "surface-container-lowest": "#0b0e15",
+                        "surface-tint": "#adc6ff",
+                        "inverse-on-surface": "#2e3038",
+                        "on-primary-container": "#00285d",
+                        "on-secondary": "#3c0091",
+                        "on-tertiary-container": "#22293d",
+                        "tertiary": "#bec6e0",
+                        "surface-container-high": "#272a31",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-tertiary-fixed": "#131b2e",
+                        "on-secondary-container": "#c4abff",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-surface": "#e1e2ec",
+                        "secondary-container": "#571bc1",
+                        "on-tertiary": "#283044",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#10131a",
+                        "on-primary-fixed": "#001a42",
+                        "on-primary": "#002e6a",
+                        "surface-bright": "#363941",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed-variant": "#004395",
+                        "inverse-primary": "#005ac2",
+                        "primary-fixed-dim": "#adc6ff",
+                        "primary": "#adc6ff",
+                        "primary-fixed": "#d8e2ff",
+                        "inverse-surface": "#e1e2ec",
+                        "surface-container-highest": "#32353c",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#e9ddff",
+                        "tertiary-fixed": "#dae2fd",
+                        "primary-container": "#4d8eff",
+                        "on-background": "#e1e2ec",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "tertiary-container": "#8990a8",
+                        "surface-dim": "#10131a",
+                        "surface-container-low": "#191b23",
+                        "surface-variant": "#32353c",
+                        "secondary": "#d0bcff",
+                        "background": "#10131a",
+                        "outline": "#8c909f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-page": "64px",
+                        "gutter": "24px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "display-xl": ["Space Grotesk"],
+                        "label-sm": ["Space Grotesk"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(29, 32, 39, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Active Glow */
+        .active-glow {
+            box-shadow: 0 0 15px rgba(173, 198, 255, 0.4);
+            border-color: theme('colors.primary');
+            color: theme('colors.primary');
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md text-body-md selection:bg-primary/30 selection:text-primary">
+<!-- TopAppBar (Web & Mobile) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-zinc-950/60 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 ease-out">
+<div class="flex items-center gap-4">
+<button class="text-zinc-400 hover:text-white hover:bg-white/5 p-2 rounded-full transition-all duration-300 ease-out active:scale-95 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="drafts">drafts</span>
+</button>
+<h1 class="text-xl font-bold text-white tracking-tighter font-['Space_Grotesk']">LuminaPDF</h1>
+</div>
+<!-- Web Navigation Tabs (Hidden on Mobile) -->
+<nav class="hidden md:flex gap-8 absolute left-1/2 -translate-x-1/2 h-full items-center">
+<a class="text-zinc-400 hover:text-white transition-colors font-label-sm text-label-sm uppercase tracking-widest flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">folder_open</span>
+                Files
+            </a>
+<a class="text-blue-400 font-label-sm text-label-sm uppercase tracking-widest flex flex-col items-center gap-1 relative group" href="#">
+<span class="material-symbols-outlined text-[20px] drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">edit_note</span>
+                Editor
+                <span class="absolute -bottom-5 w-full h-[2px] bg-blue-500 rounded-t-full shadow-[0_-2px_10px_rgba(59,130,246,0.5)]"></span>
+</a>
+<a class="text-zinc-400 hover:text-white transition-colors font-label-sm text-label-sm uppercase tracking-widest flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">ios_share</span>
+                Export
+            </a>
+<a class="text-zinc-400 hover:text-white transition-colors font-label-sm text-label-sm uppercase tracking-widest flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">history</span>
+                History
+            </a>
+</nav>
+<div class="flex items-center gap-2">
+<button class="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-secondary-container to-primary-container text-white font-label-sm text-label-sm hover:shadow-[0_0_15px_rgba(173,198,255,0.3)] transition-all duration-300">
+<span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+                Save
+            </button>
+<button class="text-zinc-400 hover:text-white hover:bg-white/5 p-2 rounded-full transition-all duration-300 ease-out active:scale-95 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 flex overflow-hidden mt-[72px] relative z-0 md:mb-0 mb-[80px]">
+<!-- Left Sidebar (Thumbnails) -->
+<aside class="hidden lg:flex w-[240px] flex-col glass-panel border-r border-t-0 border-b-0 border-l-0 overflow-y-auto">
+<div class="p-4 border-b border-white/5 sticky top-0 bg-surface-container/80 backdrop-blur-md z-10">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Pages</h2>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<!-- Active Page Thumbnail -->
+<div class="relative group cursor-pointer">
+<div class="aspect-[1/1.4] bg-white rounded-lg p-2 shadow-sm ring-2 ring-primary ring-offset-2 ring-offset-background relative overflow-hidden">
+<div class="w-full h-full border border-gray-100 flex flex-col p-1 gap-1">
+<div class="h-2 w-3/4 bg-gray-200 rounded"></div>
+<div class="h-1 w-full bg-gray-100 rounded"></div>
+<div class="h-1 w-5/6 bg-gray-100 rounded"></div>
+<div class="h-8 w-full bg-blue-50/50 mt-2 border border-blue-100 rounded"></div>
+</div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-primary font-medium">1</span>
+</div>
+<!-- Inactive Page Thumbnails -->
+<div class="relative group cursor-pointer mt-4">
+<div class="aspect-[1/1.4] bg-white/80 rounded-lg p-2 shadow-sm opacity-60 group-hover:opacity-100 transition-opacity border border-white/10">
+<div class="w-full h-full border border-gray-100 flex flex-col p-1 gap-1">
+<div class="h-2 w-1/2 bg-gray-200 rounded"></div>
+<div class="h-1 w-full bg-gray-100 rounded"></div>
+<div class="h-1 w-full bg-gray-100 rounded"></div>
+</div>
+</div>
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-on-surface-variant">2</span>
+</div>
+<div class="relative group cursor-pointer mt-4">
+<div class="aspect-[1/1.4] bg-white/80 rounded-lg p-2 shadow-sm opacity-60 group-hover:opacity-100 transition-opacity border border-white/10">
+<div class="w-full h-full border border-gray-100 flex flex-col p-1 gap-1">
+<div class="h-1 w-full bg-gray-100 rounded"></div>
+<div class="h-1 w-5/6 bg-gray-100 rounded"></div>
+</div>
+</div>
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-on-surface-variant">3</span>
+</div>
+</div>
+</aside>
+<!-- Center Document View -->
+<section class="flex-1 overflow-auto relative bg-[#0b0e15] flex justify-center py-8 px-4 md:px-12">
+<!-- Background Gradient Graphic for Depth -->
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none"></div>
+<!-- Document Container -->
+<div class="w-full max-w-[850px] relative z-10 flex flex-col gap-8 items-center pb-32">
+<!-- Page 1 -->
+<div class="w-full aspect-[1/1.4] bg-white rounded-xl shadow-2xl overflow-hidden relative group">
+<!-- Page Content Placeholder -->
+<div class="absolute inset-0 p-12 text-black flex flex-col gap-6">
+<header class="border-b-2 border-gray-200 pb-4">
+<h1 class="text-4xl font-bold font-headline-lg text-gray-900">Project Alpha: Final Report</h1>
+<p class="text-gray-500 mt-2">Q4 2023 Executive Summary</p>
+</header>
+<div class="space-y-4 text-gray-700 font-body-md text-sm leading-relaxed">
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<!-- Highlighted Text -->
+<p>Duis aute irure dolor in <span class="bg-yellow-200/50 mix-blend-multiply px-1 rounded border-b border-yellow-400">reprehenderit in voluptate velit esse</span> cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
+<!-- Image Block -->
+<div class="w-full h-48 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center my-4 relative">
+<span class="material-symbols-outlined text-gray-400 text-4xl">image</span>
+<!-- Mock Selection Box for Image -->
+<div class="absolute inset-0 border-2 border-blue-500 bg-blue-500/5 hidden group-hover:block">
+<div class="absolute -top-1 -left-1 w-2 h-2 bg-white border border-blue-500"></div>
+<div class="absolute -top-1 -right-1 w-2 h-2 bg-white border border-blue-500"></div>
+<div class="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-blue-500"></div>
+<div class="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-blue-500"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Web Toolbar (Centered Bottom) -->
+<div class="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 glass-panel rounded-full px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-40 items-center gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-white hover:bg-white/10 transition-colors" title="Select">
+<span class="material-symbols-outlined text-[20px]">ads_click</span>
+</button>
+<div class="w-px h-6 bg-white/10 mx-2"></div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center active-glow bg-primary/10 transition-all" title="Edit Text">
+<span class="material-symbols-outlined text-[20px]">match_case</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-white hover:bg-white/10 transition-colors" title="Add Image">
+<span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-white hover:bg-white/10 transition-colors" title="Highlight">
+<span class="material-symbols-outlined text-[20px]">format_ink_highlighter</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-white hover:bg-white/10 transition-colors" title="Annotate">
+<span class="material-symbols-outlined text-[20px]">draw</span>
+</button>
+<div class="w-px h-6 bg-white/10 mx-2"></div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-white hover:bg-white/10 transition-colors" title="Sign">
+<span class="material-symbols-outlined text-[20px]">signature</span>
+</button>
+</div>
+</section>
+<!-- Right Sidebar (Properties/Layers) -->
+<aside class="hidden xl:flex w-[280px] flex-col glass-panel border-l border-t-0 border-b-0 border-r-0 overflow-y-auto">
+<div class="p-4 border-b border-white/5 sticky top-0 bg-surface-container/80 backdrop-blur-md z-10 flex justify-between items-center">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Properties</h2>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">tune</span>
+</div>
+<div class="p-6 flex flex-col gap-8">
+<!-- Text Formatting Panel (Contextual) -->
+<div>
+<h3 class="font-label-sm text-label-sm text-white mb-4">Text Formatting</h3>
+<div class="flex flex-col gap-4">
+<div class="flex gap-2 bg-surface-container-high p-1 rounded-lg border border-white/5">
+<button class="flex-1 py-1 rounded bg-surface text-white text-sm shadow-sm">Sans</button>
+<button class="flex-1 py-1 rounded text-on-surface-variant text-sm hover:text-white">Serif</button>
+<button class="flex-1 py-1 rounded text-on-surface-variant text-sm hover:text-white">Mono</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm text-on-surface-variant">Size</span>
+<div class="flex items-center gap-2 bg-surface-container-high rounded px-2 py-1 border border-white/5">
+<span class="text-sm">11pt</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer">unfold_more</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded bg-surface-container-high border border-white/5 flex items-center justify-center text-white hover:bg-white/10"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="w-8 h-8 rounded bg-surface-container-high border border-white/5 flex items-center justify-center text-white hover:bg-white/10"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="w-8 h-8 rounded bg-surface-container-high border border-white/5 flex items-center justify-center text-white hover:bg-white/10"><span class="material-symbols-outlined text-[18px]">format_underlined</span></button>
+</div>
+</div>
+</div>
+<div class="h-px w-full bg-white/5"></div>
+<!-- Layers -->
+<div>
+<h3 class="font-label-sm text-label-sm text-white mb-4">Layers</h3>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-primary/10 border border-primary/20 text-primary cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span class="text-sm flex-1">Text Overlay</span>
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-on-surface-variant cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span class="text-sm flex-1">Annotations</span>
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-on-surface-variant cursor-pointer transition-colors opacity-50">
+<span class="material-symbols-outlined text-[16px]">visibility_off</span>
+<span class="text-sm flex-1">Watermark</span>
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-zinc-950/60 backdrop-blur-2xl border-t border-white/10 rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-zinc-500 px-4 py-2 hover:text-white transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest mt-1">Files</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-400 bg-blue-500/10 rounded-xl px-4 py-2 shadow-[0_0_10px_rgba(59,130,246,0.2)] active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest mt-1 text-blue-500 font-black">Editor</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 px-4 py-2 hover:text-white transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest mt-1">Export</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 px-4 py-2 hover:text-white transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest mt-1">History</span>
+</a>
+</nav>
+<!-- Mobile Action FAB (Only visible on mobile when Editor is active) -->
+<button class="md:hidden fixed bottom-28 right-6 w-14 h-14 rounded-full bg-gradient-to-br from-secondary-container to-primary-container text-white shadow-[0_0_20px_rgba(87,27,193,0.5)] flex items-center justify-center z-40 active:scale-95 transition-transform border border-white/20">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+</body></html>

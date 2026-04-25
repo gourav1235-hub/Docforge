@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Export PDF - LuminaPDF</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#1d2027",
+                        "on-secondary-fixed": "#23005c",
+                        "surface-container-lowest": "#0b0e15",
+                        "surface-tint": "#adc6ff",
+                        "inverse-on-surface": "#2e3038",
+                        "on-primary-container": "#00285d",
+                        "on-secondary": "#3c0091",
+                        "on-tertiary-container": "#22293d",
+                        "tertiary": "#bec6e0",
+                        "surface-container-high": "#272a31",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-tertiary-fixed": "#131b2e",
+                        "on-secondary-container": "#c4abff",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-surface": "#e1e2ec",
+                        "secondary-container": "#571bc1",
+                        "on-tertiary": "#283044",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#10131a",
+                        "on-primary-fixed": "#001a42",
+                        "on-primary": "#002e6a",
+                        "surface-bright": "#363941",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed-variant": "#004395",
+                        "inverse-primary": "#005ac2",
+                        "primary-fixed-dim": "#adc6ff",
+                        "primary": "#adc6ff",
+                        "primary-fixed": "#d8e2ff",
+                        "inverse-surface": "#e1e2ec",
+                        "surface-container-highest": "#32353c",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#e9ddff",
+                        "tertiary-fixed": "#dae2fd",
+                        "primary-container": "#4d8eff",
+                        "on-background": "#e1e2ec",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "tertiary-container": "#8990a8",
+                        "surface-dim": "#10131a",
+                        "surface-container-low": "#191b23",
+                        "surface-variant": "#32353c",
+                        "secondary": "#d0bcff",
+                        "background": "#10131a",
+                        "outline": "#8c909f"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        unit: "8px",
+                        "margin-page": "64px",
+                        "gutter": "24px",
+                        "container-max": "1440px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "display-xl": ["Space Grotesk"],
+                        "label-sm": ["Space Grotesk"],
+                        "body-md": ["Manrope"]
+                    },
+                    fontSize: {
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "500" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "display-xl": ["72px", { lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "700" }],
+                        "label-sm": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-pulse {
+            animation: pulse-glow 2s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px rgba(77, 142, 255, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(77, 142, 255, 0.6); }
+        }
+        .bg-gradient-radial {
+            background: radial-gradient(circle at center, rgba(77,142,255,0.15) 0%, rgba(16,19,26,0) 70%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-zinc-950/60 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 ease-out active:scale-95 flex justify-between items-center w-full px-6 py-4 z-50 docked full-width top-0 border-b">
+<button class="text-zinc-400 hover:bg-white/5 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">drafts</span>
+</button>
+<h1 class="font-['Space_Grotesk'] tracking-tight text-xl font-bold text-white tracking-tighter">LuminaPDF</h1>
+<button class="text-zinc-400 hover:bg-white/5 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-start px-6 pt-12 pb-32 relative bg-gradient-radial">
+<!-- Success Indicator -->
+<div class="mb-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary-container/20 border border-primary/30 flex items-center justify-center mb-6 glow-pulse">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-white text-center mb-2">Processing Complete</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-center">Your document is ready for export.</p>
+</div>
+<!-- File Summary Card -->
+<div class="glass-card rounded-2xl w-full max-w-md p-6 mb-8 flex items-center space-x-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div class="flex-grow overflow-hidden">
+<h3 class="font-headline-md text-body-lg text-white truncate mb-1">Q3_Financial_Report_Final.pdf</h3>
+<div class="flex items-center text-label-sm font-label-sm text-outline">
+<span>PDF Document</span>
+<span class="mx-2">•</span>
+<span class="text-primary">2.4 MB</span>
+<span class="mx-2 text-outline-variant">-45% smaller</span>
+</div>
+</div>
+</div>
+<!-- Export Options Bento -->
+<div class="w-full max-w-md grid grid-cols-2 gap-4 mb-10">
+<!-- Save to Cloud -->
+<button class="glass-card rounded-xl p-4 flex flex-col items-center justify-center space-y-3 hover:bg-white/5 transition-colors border border-transparent hover:border-primary/30 group">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">cloud_upload</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Save to Cloud</span>
+</button>
+<!-- Share Link -->
+<button class="glass-card rounded-xl p-4 flex flex-col items-center justify-center space-y-3 hover:bg-white/5 transition-colors border border-transparent hover:border-primary/30 group">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">link</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Share Link</span>
+</button>
+</div>
+<!-- Primary Action -->
+<div class="w-full max-w-md mt-auto">
+<button class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-primary to-secondary-container text-white font-headline-md text-body-lg flex items-center justify-center space-x-2 shadow-[0_0_20px_rgba(173,198,255,0.3)] hover:shadow-[0_0_30px_rgba(173,198,255,0.5)] transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">download</span>
+<span>Download Now</span>
+</button>
+<p class="text-center font-label-sm text-label-sm text-outline mt-4 uppercase tracking-widest">or drag to desktop</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-zinc-950/60 backdrop-blur-2xl border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 border-t rounded-t-2xl md:hidden">
+<button class="flex flex-col items-center justify-center text-zinc-500 px-4 py-2 hover:text-white transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">folder_open</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest">Files</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-500 px-4 py-2 hover:text-white transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">edit_note</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest">Editor</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-400 bg-blue-500/10 rounded-xl px-4 py-2 shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:text-white transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">ios_share</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest text-blue-500 font-black">Export</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-500 px-4 py-2 hover:text-white transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">history</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest">History</span>
+</button>
+</nav>
+</body></html>

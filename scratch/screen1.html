@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PDF.FLUX - PDF Converter Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#32353c",
+                      "secondary": "#d0bcff",
+                      "on-primary": "#002e6a",
+                      "on-secondary": "#3c0091",
+                      "outline-variant": "#424754",
+                      "primary": "#adc6ff",
+                      "error-container": "#93000a",
+                      "surface-container-low": "#191b23",
+                      "surface-container-highest": "#32353c",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "surface-container-lowest": "#0b0e15",
+                      "secondary-container": "#571bc1",
+                      "surface-bright": "#363941",
+                      "on-tertiary-container": "#22293d",
+                      "surface": "#10131a",
+                      "tertiary": "#bec6e0",
+                      "on-primary-container": "#00285d",
+                      "on-tertiary-fixed": "#131b2e",
+                      "primary-fixed-dim": "#adc6ff",
+                      "tertiary-fixed": "#dae2fd",
+                      "tertiary-fixed-dim": "#bec6e0",
+                      "primary-fixed": "#d8e2ff",
+                      "surface-container-high": "#272a31",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-primary-fixed": "#001a42",
+                      "background": "#10131a",
+                      "on-error": "#690005",
+                      "primary-container": "#4d8eff",
+                      "secondary-fixed": "#e9ddff",
+                      "inverse-on-surface": "#2e3038",
+                      "inverse-surface": "#e1e2ec",
+                      "on-secondary-fixed": "#23005c",
+                      "surface-container": "#1d2027",
+                      "on-surface": "#e1e2ec",
+                      "on-secondary-container": "#c4abff",
+                      "error": "#ffb4ab",
+                      "tertiary-container": "#8990a8",
+                      "surface-dim": "#10131a",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "outline": "#8c909f",
+                      "on-surface-variant": "#c2c6d6",
+                      "surface-tint": "#adc6ff",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-error-container": "#ffdad6",
+                      "on-background": "#e1e2ec",
+                      "inverse-primary": "#005ac2",
+                      "on-tertiary": "#283044"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1440px",
+                      "margin-page": "64px",
+                      "gutter": "24px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Space Grotesk"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "headline-md": [
+                              "Space Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Space Grotesk"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "display-xl": [
+                              "Space Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl": [
+                              "72px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(173, 198, 255, 0.5);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 25px rgba(173, 198, 255, 0.8);
+        }
+        .glass-button {
+            background: linear-gradient(135deg, rgba(173, 198, 255, 0.1) 0%, rgba(208, 188, 255, 0.1) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-slate-950/60 backdrop-blur-[20px] border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-blue-500 font-['Space_Grotesk'] font-medium tracking-tight">grid_view</span>
+<span class="text-xl font-bold tracking-tighter text-white bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">PDF.FLUX</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full glass-button hover:bg-white/5 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)] transition-all scale-95 active:scale-90 duration-200">
+<span class="font-label-sm text-label-sm text-primary">Upload</span>
+</button>
+</header>
+<!-- NavigationDrawer -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col p-4 bg-slate-950/40 backdrop-blur-[20px] border-r border-white/10">
+<div class="mb-8 px-4">
+<h2 class="font-['Space_Grotesk'] text-sm uppercase tracking-widest text-white font-black">TOOLKIT</h2>
+</div>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/5 hover:backdrop-blur-md transition-colors duration-300 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+                    Editor
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-blue-400 border-r-2 border-blue-500 bg-blue-500/10 shadow-[inset_-10px_0_15px_rgba(59,130,246,0.1)] transition-colors duration-300 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">compress</span>
+                    Convert
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/5 hover:backdrop-blur-md transition-colors duration-300 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">library_add</span>
+                    Merge
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/5 hover:backdrop-blur-md transition-colors duration-300 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                    AI Chat
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/5 hover:backdrop-blur-md transition-colors duration-300 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">shield</span>
+                    Security
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Workspace -->
+<main class="ml-64 mt-16 p-8 min-h-[calc(100vh-64px)] flex flex-col xl:flex-row gap-8 relative z-10 before:absolute before:inset-0 before:-z-10 before:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] before:from-surface-container-high/50 before:via-background before:to-background">
+<!-- Center Canvas - Preview -->
+<div class="flex-1 flex flex-col gap-6">
+<header class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Convert Document</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Transform your PDFs into editable formats with AI-precision.</p>
+</div>
+</header>
+<div class="glass-card rounded-xl flex-1 flex flex-col p-6 min-h-[600px] relative overflow-hidden group">
+<!-- Preview Canvas -->
+<div class="flex-1 border border-dashed border-outline-variant rounded-lg flex items-center justify-center relative overflow-hidden bg-surface-container/50">
+<div abstract="" and="" background="" blue="" class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2564&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-20 data-alt=" dark="" geometric="" glowing="" lines="" modern="" neon="" on="" purple="" surface"="" with=""></div>
+<div class="relative z-10 flex flex-col items-center gap-4 text-center">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 1;">description</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Annual_Report_2024.pdf</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">4.2 MB • 24 Pages</p>
+</div>
+</div>
+<!-- Floating Tools -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 glass-card rounded-full px-6 py-3 flex items-center gap-6 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">zoom_in</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">zoom_out</span></button>
+<div class="w-px h-6 bg-outline-variant"></div>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">view_carousel</span></button>
+</div>
+</div>
+</div>
+<!-- Right Panel - Settings -->
+<aside class="w-full xl:w-[400px] flex flex-col gap-6">
+<!-- Format Selection -->
+<div class="glass-card rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Output Format</h3>
+<div class="grid grid-cols-2 gap-4">
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="format" type="radio"/>
+<div class="glass-button rounded-lg p-4 flex flex-col items-center gap-3 peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:shadow-[0_0_15px_rgba(173,198,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-3xl text-secondary">description</span>
+<span class="font-label-sm text-label-sm text-on-surface">Word</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="format" type="radio"/>
+<div class="glass-button rounded-lg p-4 flex flex-col items-center gap-3 peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:shadow-[0_0_15px_rgba(173,198,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-3xl text-[#107C41]">table_chart</span>
+<span class="font-label-sm text-label-sm text-on-surface">Excel</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="format" type="radio"/>
+<div class="glass-button rounded-lg p-4 flex flex-col items-center gap-3 peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:shadow-[0_0_15px_rgba(173,198,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-3xl text-[#D83B01]">slideshow</span>
+<span class="font-label-sm text-label-sm text-on-surface">PowerPoint</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="format" type="radio"/>
+<div class="glass-button rounded-lg p-4 flex flex-col items-center gap-3 peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:shadow-[0_0_15px_rgba(173,198,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-3xl text-tertiary">image</span>
+<span class="font-label-sm text-label-sm text-on-surface">JPG</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Settings -->
+<div class="glass-card rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Settings</h3>
+<div class="space-y-4">
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-body-md text-body-md text-on-surface-variant">OCR Engine (Scanned PDFs)</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary/20 peer-checked:after:border-primary peer-checked:after:bg-primary neon-glow"></div>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-body-md text-body-md text-on-surface-variant">Preserve Layout</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary/20 peer-checked:after:border-primary peer-checked:after:bg-primary neon-glow"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-auto pt-6 border-t border-outline-variant/30">
+<button class="w-full py-4 rounded-lg bg-gradient-to-r from-primary to-secondary text-surface-container-lowest font-label-sm text-label-sm uppercase tracking-widest neon-glow transition-all duration-300 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">model_training</span>
+                    Convert Now
+                </button>
+</div>
+</aside>
+</main>
+</body></html>
